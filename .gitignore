@@ -1,5 +1,5 @@
 BE News Web Crawler.pdf
-mongo.txt
+tokens.txt
 test.py
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
@@ -135,6 +135,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.finaltest
+.testvenv
 
 # Spyder project settings
 .spyderproject
