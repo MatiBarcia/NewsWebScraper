@@ -29,7 +29,7 @@ Realiza una petición POST a http://localhost:8000 con un cuerpo en JSON que con
 
 ## Tecnologías Utilizadas
 + Python: Lenguaje de programación principal.
-+ NLTK: Para el procesamiento del lenguaje natural y la generación de resúmenes.
++ Transformers (Hugging Face): Específicamente el modelo BART de Meta AI, para realizar resúmenes automáticos de textos largos.
 + MongoDB Atlas: Base de datos NoSQL en la nube para almacenar datos en formato JSON.
 + FastAPI: Framework web de alto rendimiento para la creación del endpoint REST.
 + Requests: Para realizar las solicitudes HTTP y obtener el contenido de las páginas.
