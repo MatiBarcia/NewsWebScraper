@@ -7,6 +7,8 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 from collections import defaultdict
 from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import torch
 
 nltk.download('punkt')
 nltk.download('punkt_tab')
@@ -14,11 +16,12 @@ nltk.download('stopwords')
 
 app = FastAPI()
 
-with open("mongo.txt", "r") as f:
+with open("tokens.txt", "r") as f:
     lines = f.read().splitlines()
     client_uri = lines[0]
     db_name = lines[1]
     collection_name = lines[2]
+    api_token = lines[3]
 
 # Configuración de MongoDB Atlas
 client = MongoClient(client_uri)
@@ -62,6 +65,24 @@ def summarize_text(text, language, num_sentences=2):
     summary = ' '.join(important_sentences[:num_sentences])
 
     return summary
+
+def summarize_text_AI(text):
+    # Cargar el modelo y el tokenizer
+    model_name = "facebook/bart-large-cnn"
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name, token=api_token)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_name, token=api_token).to("cuda" if torch.cuda.is_available() else "cpu")
+
+    # Tokenizar el texto
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=1024).to("cuda" if torch.cuda.is_available() else "cpu")
+
+    # Generar resumen
+    with torch.no_grad():
+        outputs = model.generate(inputs["input_ids"], max_length=150, min_length=30, length_penalty=2.0, num_beams=4, early_stopping=True)
+
+    # Decodificar la salida
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return generated_text
 
 def fetch_article_content(url):
     response = requests.get(url)
@@ -110,7 +131,8 @@ async def summarize_article(productUrl: str):
         raise HTTPException(status_code=404, detail="No se encontró el contenido del artículo")
 
     if "/live/" not in productUrl:
-        summary = summarize_text(article_text, language)
+        # summary = summarize_text(article_text, language)
+        summary = summarize_text_AI(article_text)
     else: 
         summary = article_text
 
