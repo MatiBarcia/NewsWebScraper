@@ -37,4 +37,4 @@ Realiza una petición POST a http://localhost:8000 con un cuerpo en JSON que con
 
 ## Estructura del Proyecto
 + NewsWebScraper.py: Archivo principal para la ejecución del servidor y manejo de las peticiones.
-+ mongo.txt: Posee las credenciales de la base de datos en MongoDB.
++ tokens.txt: Posee las credenciales tanto de la base de datos en MongoDB, como el token de la API de Hugging Face.
