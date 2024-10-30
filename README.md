@@ -1,40 +1,40 @@
 # Web Scraper for News Summarization
-Este proyecto es un sistema de web scraper diseñado para recibir URLs de artículos de noticias y generar resúmenes concisos. A través de un endpoint REST, el sistema permite a los usuarios enviar URLs, tras lo cual realiza el crawling de los artículos, extrae el contenido principal y genera un resumen. 
+This project is a web scraper system designed to receive URLs of news articles and generate concise summaries. Through a REST endpoint, the system allows users to send URLs, after which it crawls the articles, extracts the main content, and generates a summary.
 
-_Inicialmente, el sistema está configurado para funcionar solo con artículos de la BBC._
+_The system is initially configured to work only with [BBC](https://www.bbc.com/news) articles._
 
-## Instalación
+## Installation
 
-Instala todas las dependencias del proyecto:
+Install all project dependencies:
 ```
 pip install -r requirements.txt
 ```
 
-Este proyecto almacena datos en un clúster de MongoDB Atlas en formato JSON. Asegúrate de tener acceso a tu clúster de Atlas y configura la URI de conexión en el archivo de configuración .env.
+This project stores data in a MongoDB Atlas cluster in JSON format. Make sure you have access to your Atlas cluster and configure the connection URI in the .env configuration file.
 
 
-## Uso
+## Usage
 
-Ejecuta el servidor con el siguiente comando:
+Run the server with the following command:
 ```
 uvicorn NewsWebScraper:app --reload
 ```
 
-Realiza una petición POST a http://localhost:8000 con un cuerpo en JSON que contenga el campo productUrl, como se muestra:
+Make a POST request to http://localhost:8000 with a JSON body containing the productUrl field, as shown:
 ```
 {
   "productUrl": "https://www.bbc.com/news/article-url" 
 }
 ```
 
-## Tecnologías Utilizadas
-+ Python: Lenguaje de programación principal.
-+ NLTK: Para el procesamiento del lenguaje natural y la generación de resúmenes.
-+ MongoDB Atlas: Base de datos NoSQL en la nube para almacenar datos en formato JSON.
-+ FastAPI: Framework web de alto rendimiento para la creación del endpoint REST.
-+ Requests: Para realizar las solicitudes HTTP y obtener el contenido de las páginas.
-+ BeautifulSoup: Herramienta para extraer y analizar contenido HTML de las páginas web.
+## Technologies Used
++ Python: Main programming language.
++ Transformers ([Hugging Face](https://huggingface.co/)): Specifically, the [BART](https://huggingface.co/facebook/bart-large-cnn) model by Meta AI, to automatically summarize long texts.
++ [MongoDB Atlas](https://www.mongodb.com/en/atlas): Cloud-based NoSQL database to store data in JSON format.
++ [FastAPI](https://fastapi.tiangolo.com/): High-performance web framework for creating the REST endpoint.
++ Requests: To make HTTP requests and retrieve page content.
++ BeautifulSoup: Tool for extracting and parsing HTML content from web pages.
 
-## Estructura del Proyecto
-+ NewsWebScraper.py: Archivo principal para la ejecución del servidor y manejo de las peticiones.
-+ mongo.txt: Posee las credenciales de la base de datos en MongoDB.
+## Project Structure
++ NewsWebScraper.py: Main file for server execution and request handling.
++ tokens.txt: Contains credentials for both the MongoDB database and the Hugging Face API token.
