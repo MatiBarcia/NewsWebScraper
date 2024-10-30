@@ -1,7 +1,7 @@
 # Web Scraper for News Summarization
 This project is a web scraper system designed to receive URLs of news articles and generate concise summaries. Through a REST endpoint, the system allows users to send URLs, after which it crawls the articles, extracts the main content, and generates a summary.
 
-_The system is initially configured to work only with BBC articles._
+_The system is initially configured to work only with [BBC](https://www.bbc.com/news) articles._
 
 ## Installation
 
@@ -29,9 +29,9 @@ Make a POST request to http://localhost:8000 with a JSON body containing the pro
 
 ## Technologies Used
 + Python: Main programming language.
-+ Transformers (Hugging Face): Specifically, the BART model by Meta AI, to automatically summarize long texts.
-+ MongoDB Atlas: Cloud-based NoSQL database to store data in JSON format.
-+ FastAPI: High-performance web framework for creating the REST endpoint.
++ Transformers ([Hugging Face](https://huggingface.co/)): Specifically, the [BART](https://huggingface.co/facebook/bart-large-cnn) model by Meta AI, to automatically summarize long texts.
++ [MongoDB Atlas](https://www.mongodb.com/en/atlas): Cloud-based NoSQL database to store data in JSON format.
++ [FastAPI](https://fastapi.tiangolo.com/): High-performance web framework for creating the REST endpoint.
 + Requests: To make HTTP requests and retrieve page content.
 + BeautifulSoup: Tool for extracting and parsing HTML content from web pages.
 
