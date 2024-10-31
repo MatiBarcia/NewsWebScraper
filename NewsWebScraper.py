@@ -123,11 +123,11 @@ def fetch_article_content(url):
         elif "/mundo/" in url or "/afrique/" in url:
             article = soup.find_all("div", class_="bbc-19j92fr ebmt73l0")
             article_text = ''.join(p.get_text() for p in article) if article else "Content not available."
+        elif "/live/" in url:
+            article = soup.find("div", class_="ssrcss-1x9m6ni-BulletListContainer e5tfeyi0")
+            article_text = article.get_text() if article else "Content not available."
         elif "/news/" in url or "/travel/" in url or "/culture/" in url:
             article = soup.find("article")
-            article_text = article.get_text() if article else "Content not available."
-        elif "/live/" in url:
-            article = soup.find("div", class_="ssrcss-1o5f7ft-BulletListContainer e5tfeyi0")
             article_text = article.get_text() if article else "Content not available."
         else:
             raise HTTPException(status_code=404, detail="Unknown BBC URL format.")
